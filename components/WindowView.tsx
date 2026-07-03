@@ -7,6 +7,7 @@ import {
   useSpring,
   useTransform,
   AnimatePresence,
+  type Variants,
 } from 'framer-motion'
 import Image from 'next/image'
 import { Room, Phase, Hotspot as HotspotType } from '@/types'
@@ -32,7 +33,7 @@ interface WindowViewProps {
 }
 
 // Cinematic Motion Blur slide variants with seamless 100% sliding
-const slideVariants = {
+const slideVariants: Variants = {
   initial: (dir: number) => ({
     x: dir > 0 ? '100%' : '-100%',
     filter: 'blur(16px) contrast(1.15)',
@@ -44,7 +45,7 @@ const slideVariants = {
     opacity: 1,
     transition: {
       duration: 0.7,
-      ease: [0.32, 0.72, 0, 1],
+      ease: [0.32, 0.72, 0, 1] as const,
     },
   },
   exit: (dir: number) => ({
@@ -53,7 +54,7 @@ const slideVariants = {
     opacity: 0.85,
     transition: {
       duration: 0.7,
-      ease: [0.32, 0.72, 0, 1],
+      ease: [0.32, 0.72, 0, 1] as const,
     },
   }),
 }
@@ -169,7 +170,7 @@ export default function WindowView({
             }
             transition={{
               duration: 0.85,
-              ease: [0.6, 0.05, 0.1, 0.95],
+              ease: [0.6, 0.05, 0.1, 0.95] as const,
             }}
           >
             <Image
@@ -214,7 +215,7 @@ export default function WindowView({
               }
               transition={{
                 duration: 0.85,
-                ease: [0.6, 0.05, 0.1, 0.95],
+                ease: [0.6, 0.05, 0.1, 0.95] as const,
               }}
               onAnimationComplete={() => {
                 if (isEntering || isExiting) onAnimationComplete()
