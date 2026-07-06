@@ -183,17 +183,17 @@ export default function WindowView({
               isEntering
                 ? { scale: 1.0 }
                 : isExiting
-                ? { scale: 1.08 }
-                : { scale: 1.0 }
+                  ? { scale: 1.08 }
+                  : { scale: 1.0 }
             }
             animate={
               isEntering
                 ? { scale: 1.08 }
                 : isExiting
-                ? { scale: 1.0 }
-                : isRoomView
-                ? { scale: 1.08 }
-                : { scale: 1.0 }
+                  ? { scale: 1.0 }
+                  : isRoomView
+                    ? { scale: 1.08 }
+                    : { scale: 1.0 }
             }
             transition={{
               duration: 0.85,
@@ -230,15 +230,15 @@ export default function WindowView({
               animate={
                 isEntering
                   ? {
-                      scale: 5,
-                      opacity: 0,
-                      filter: 'blur(18px) brightness(1.1)',
-                    }
+                    scale: 5,
+                    opacity: 0,
+                    filter: 'blur(18px) brightness(1.1)',
+                  }
                   : {
-                      scale: 1,
-                      opacity: 1,
-                      filter: 'blur(0px) brightness(1)',
-                    }
+                    scale: 1,
+                    opacity: 1,
+                    filter: 'blur(0px) brightness(1)',
+                  }
               }
               transition={{
                 duration: 0.85,
@@ -354,10 +354,10 @@ export default function WindowView({
             >
               <p
                 style={{
-                  fontFamily: 'Inter, system-ui, sans-serif',
-                  fontSize: '11px',
+                  fontFamily: 'Montserrat, system-ui, sans-serif',
+                  fontSize: '14px',
                   fontWeight: 700,
-                  letterSpacing: '0.35em',
+                  letterSpacing: '0.3em',
                   textTransform: 'uppercase',
                   color: 'rgba(255, 255, 255, 0.95)',
                   marginBottom: '4px',
@@ -368,9 +368,9 @@ export default function WindowView({
               </p>
               <h1
                 style={{
-                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontFamily: 'Montserrat, system-ui, sans-serif',
                   fontSize: 'clamp(1.6rem, 4vw, 2.5rem)',
-                  fontWeight: 800,
+                  fontWeight: 700,
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   color: '#FFFFFF',
