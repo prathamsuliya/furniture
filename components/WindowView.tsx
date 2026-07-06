@@ -32,7 +32,7 @@ interface WindowViewProps {
   onAnimationComplete: () => void
 }
 
-// Cinematic Motion Blur slide variants with seamless 100% sliding
+// Cinematic Motion Blur slide variants with seamless 100% sliding for Window & Room image
 const slideVariants: Variants = {
   initial: (dir: number) => ({
     x: dir > 0 ? '100%' : '-100%',
@@ -52,6 +52,33 @@ const slideVariants: Variants = {
     x: dir > 0 ? '-100%' : '100%',
     filter: 'blur(16px) contrast(1.15)',
     opacity: 0.85,
+    transition: {
+      duration: 0.7,
+      ease: [0.32, 0.72, 0, 1] as const,
+    },
+  }),
+}
+
+// Matching Motion Blur slide variants for Header Text Title (Chapter & Room Name)
+const titleVariants: Variants = {
+  initial: (dir: number) => ({
+    x: dir > 0 ? '80%' : '-80%',
+    opacity: 0,
+    filter: 'blur(12px)',
+  }),
+  animate: {
+    x: '0%',
+    opacity: 1,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.7,
+      ease: [0.32, 0.72, 0, 1] as const,
+    },
+  },
+  exit: (dir: number) => ({
+    x: dir > 0 ? '-80%' : '80%',
+    opacity: 0,
+    filter: 'blur(12px)',
     transition: {
       duration: 0.7,
       ease: [0.32, 0.72, 0, 1] as const,
@@ -233,15 +260,15 @@ export default function WindowView({
             </motion.div>
           )}
 
+          {/* ── DAPPLED TREE SHADOW OVERLAY — Sliding with Window Image ── */}
+          {!isRoomView && <TreeShadow />}
+
           {/* ── DYNAMIC VIGNETTE ── */}
           {isWindowView && (
             <div className="absolute inset-0 z-20 pointer-events-none bg-radial from-transparent via-transparent to-black/25" />
           )}
         </motion.div>
       </AnimatePresence>
-
-      {/* ── TREE SHADOW OVERLAY — Root Level z-40 (ABOVE Window Image z-0/z-10, BELOW UI Buttons z-50) ── */}
-      {!isRoomView && <TreeShadow />}
 
       {/* ══════════════════════════════════════════════════════════
           HOTSPOTS LAYER (Visible in Room View)
@@ -313,43 +340,48 @@ export default function WindowView({
             </svg>
           </motion.button>
 
-          {/* Header Title (White Text with Magnetic Cursor Tracking) */}
-          <motion.div
-            className="absolute top-0 left-0 right-0 z-50 flex flex-col items-center pt-10 pointer-events-none"
-            style={{ x: textX, y: textY }}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: isEntering ? 0 : 1, y: isEntering ? -20 : 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <p
-              style={{
-                fontFamily: 'Inter, system-ui, sans-serif',
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.35em',
-                textTransform: 'uppercase',
-                color: 'rgba(255, 255, 255, 0.95)',
-                marginBottom: '4px',
-                textShadow: '0 2px 10px rgba(0,0,0,0.85)',
-              }}
+          {/* Header Title (White Text with Cinematic Slide Motion & Magnetic Cursor Tracking) */}
+          <AnimatePresence mode="popLayout" custom={direction}>
+            <motion.div
+              key={`title-${room.id}`}
+              custom={direction}
+              variants={titleVariants}
+              initial="initial"
+              animate={isEntering ? { opacity: 0, y: -20 } : "animate"}
+              exit="exit"
+              className="absolute top-0 left-0 right-0 z-50 flex flex-col items-center pt-10 pointer-events-none"
+              style={{ x: textX, y: textY }}
             >
-              CHAPTER {getRomanNumeral(room.id)}
-            </p>
-            <h1
-              style={{
-                fontFamily: 'Inter, system-ui, sans-serif',
-                fontSize: 'clamp(1.6rem, 4vw, 2.5rem)',
-                fontWeight: 800,
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                color: '#FFFFFF',
-                lineHeight: 1.1,
-                textShadow: '0 4px 22px rgba(0,0,0,0.90)',
-              }}
-            >
-              {room.name}
-            </h1>
-          </motion.div>
+              <p
+                style={{
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  letterSpacing: '0.35em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(255, 255, 255, 0.95)',
+                  marginBottom: '4px',
+                  textShadow: '0 2px 10px rgba(0,0,0,0.85)',
+                }}
+              >
+                CHAPTER {getRomanNumeral(room.id)}
+              </p>
+              <h1
+                style={{
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: 'clamp(1.6rem, 4vw, 2.5rem)',
+                  fontWeight: 800,
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  color: '#FFFFFF',
+                  lineHeight: 1.1,
+                  textShadow: '0 4px 22px rgba(0,0,0,0.90)',
+                }}
+              >
+                {room.name}
+              </h1>
+            </motion.div>
+          </AnimatePresence>
 
           {/* Enter Room Button — Magnetic cursor move */}
           <motion.div
