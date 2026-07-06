@@ -446,18 +446,6 @@ export default function WindowView({
       )}
 
       {/* ══════════════════════════════════════════════════════════
-          BRAND BADGE — Bottom Left (White background, black text)
-      ══════════════════════════════════════════════════════════ */}
-      <motion.div
-        className="fixed bottom-6 left-6 z-50 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-neutral-900 border border-black/10 shadow-md backdrop-blur-md flex items-center justify-center font-serif text-xs font-bold tracking-tighter"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        M
-      </motion.div>
-
-      {/* ══════════════════════════════════════════════════════════
           PRODUCT CARD DRAWER MODAL
       ══════════════════════════════════════════════════════════ */}
       <ProductCard hotspot={activeHotspot} onClose={onHotspotClose} />

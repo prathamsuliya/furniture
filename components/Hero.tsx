@@ -5,7 +5,6 @@ import { rooms } from '@/data/rooms'
 import { Phase, Hotspot } from '@/types'
 import WindowView from './WindowView'
 import ImageLoader from './ImageLoader'
-import AudioToggle from './AudioToggle'
 
 export default function Hero() {
   const [phase, setPhase] = useState<Phase>('window')
@@ -66,9 +65,6 @@ export default function Hero() {
       <ImageLoader urls={allImageUrls} />
 
       <div className="relative w-full h-full overflow-hidden bg-[#F5F0EB]">
-        {/* Ambient audio toggle control (Miu Miu styled) */}
-        <AudioToggle />
-
         {/* Unified Single-Image Showroom View */}
         <WindowView
           key="unified-view"
